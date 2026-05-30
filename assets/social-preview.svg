@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" font-family="ui-sans-serif, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <rect width="1280" height="640" fill="#0d1117"/>
+  <rect x="0" y="0" width="1280" height="8" fill="#8957e5"/>
+
+  <text x="80" y="178" font-size="74" font-weight="700" fill="#f0f6fc">claude-skill-flywheel</text>
+  <text x="84" y="246" font-size="34" font-weight="600" fill="#58a6ff">A self-improving skill system for Claude Code</text>
+
+  <text x="84" y="338" font-size="30" fill="#c9d1d9">Claude reaches for the right skill on every turn —</text>
+  <text x="84" y="380" font-size="30" fill="#c9d1d9">and learns from your corrections, so it stops</text>
+  <text x="84" y="422" font-size="30" fill="#c9d1d9">repeating the same mistakes.</text>
+
+  <text x="84" y="500" font-size="26" font-weight="600" fill="#d29922">SKILL CHECK  →  log this  →  next session recalls it</text>
+
+  <text x="84" y="584" font-size="24" fill="#6e7681">github.com/WinterDDo/claude-skill-flywheel</text>
+  <text x="1196" y="584" font-size="24" fill="#6e7681" text-anchor="end">MIT · 100% local</text>
+
+  <!-- flywheel loop motif -->
+  <g transform="translate(1052,300)" fill="none" stroke="#3fb950" stroke-width="10" stroke-linecap="round">
+    <path d="M 0,-118 A 118,118 0 1 1 -83.4,83.4"/>
+  </g>
+  <path d="M -36,360 l -22,30 l 34,4 z" transform="translate(1052,0)" fill="#3fb950"/>
+  <circle cx="1052" cy="300" r="48" fill="#161b22" stroke="#30363d" stroke-width="2"/>
+  <path d="M1056,276 L1038,304 L1050,304 L1046,324 L1066,294 L1052,294 Z" fill="#d29922"/>
+</svg>

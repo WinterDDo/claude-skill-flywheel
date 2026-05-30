@@ -24,7 +24,7 @@ fi
 mkdir -p "$CLAUDE_HOME/hooks" "$CLAUDE_HOME/.flywheel"
 
 # 1. Hooks — copy, backing up any file we would replace
-for src in "$SCRIPT_DIR"/hooks/*.py; do
+for src in "$SCRIPT_DIR"/plugins/flywheel/hooks/*.py; do
   [ -e "$src" ] || continue
   name="$(basename "$src")"
   dest="$CLAUDE_HOME/hooks/$name"
@@ -80,7 +80,7 @@ for name in corrections.md principles.md; do
   if [ -f "$dest" ]; then
     say ".flywheel/$name already exists — left untouched"
   else
-    cp "$SCRIPT_DIR/flywheel/$name" "$dest"
+    cp "$SCRIPT_DIR/plugins/flywheel/flywheel/$name" "$dest"
     ok ".flywheel/$name"
   fi
 done

@@ -12,10 +12,28 @@ Everything is read from local plaintext under ~/.claude/. Fully guarded:
 any missing or malformed file degrades to an empty string, never an error.
 """
 import json
+import os
+import shutil
 from pathlib import Path
 
 HOME = Path.home() / ".claude"
 FLYWHEEL = HOME / ".flywheel"
+
+# --- First-run seed (plugin install): if the flywheel memory does not exist yet,
+#     copy the bundled templates into ~/.claude/.flywheel/. CLAUDE_PLUGIN_ROOT is set
+#     only when running as a plugin; the bash installer seeds these too, so this is a
+#     harmless no-op there. Memory always lives in the user dir, never the plugin dir. ---
+_plugin_root = os.environ.get("CLAUDE_PLUGIN_ROOT")
+if _plugin_root:
+    try:
+        FLYWHEEL.mkdir(parents=True, exist_ok=True)
+        for _name in ("corrections.md", "principles.md"):
+            _dest = FLYWHEEL / _name
+            _src = Path(_plugin_root) / "flywheel" / _name
+            if not _dest.exists() and _src.exists():
+                shutil.copy(_src, _dest)
+    except Exception:
+        pass
 
 # --- Dynamic skill list: stays accurate as skills are added or removed ---
 skills_dir = HOME / "skills"

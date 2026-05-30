@@ -1,52 +1,57 @@
-# claude-skill-flywheel
+<div align="center">
 
-**A self-improving skill system for Claude Code.** It makes Claude reliably reach for the right skill on every turn, then learns from your corrections so it gets better over time. 100% local plaintext. No service, no telemetry.
+# 🎯 claude-skill-flywheel
 
-[简体中文](README.zh.md)
+**Claude Code that remembers your corrections and stops repeating them** — and reliably reaches for the right skill on every turn, instead of forgetting the skills you installed.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-3fb950.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-0.1.0-58a6ff.svg)](CHANGELOG.md)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-8957e5.svg)](https://code.claude.com/docs/en/plugins)
+[![100% local](https://img.shields.io/badge/data-100%25%20local-3fb950.svg)](#privacy-read-this-its-short)
+
+[English](README.md) · [简体中文](README.zh.md)
+
+</div>
 
 > Most skill setups are static: you install skills and *hope* Claude remembers to use them. This is the loop that makes them **fire** and **compound**.
 
+<div align="center">
+  <img src="assets/demo.svg" alt="A terminal showing the SKILL CHECK firing, a correction being logged, and the next session recalling it" width="760">
+</div>
+
 ---
 
-## The problem
+## What it is, in one minute
 
-You install skills, write a careful `CLAUDE.md`, and Claude still answers from habit and forgets the skill exists. You correct the same mistake next week, and the week after. Nothing accumulates. Static instructions decay, because nothing reinforces them and nothing learns from how you actually work.
+Imagine giving Claude a notebook and an apprentice's memory.
 
-## The idea
+- Before it answers, it checks: *"what kind of task is this, and which of my skills fits?"* — so it stops ignoring the skills you installed.
+- When it gets something wrong and you correct it, you say **"log this"**, and it writes the lesson down.
+- At the **start of the next session**, it reads its recent notes first — so it doesn't repeat the mistake.
+- Once a lesson shows up enough times, it **graduates into a permanent principle** that loads every session.
 
-Treat skill selection as a behavior you can train, in plain text, with no fine-tuning:
-
-- your **corrections** are the loss signal,
-- a periodic **distill** pass is the optimizer step,
-- the surviving **principles** are the learned weights,
-- and two **hooks** make sure all of it loads back into every session.
-
-That is the whole trick. The result is a flywheel: the more you use it, the less it repeats your past mistakes.
-
-## The loop
+The more you use it, the fewer old mistakes it makes. That loop is the flywheel.
 
 ```
-  ┌─▶  pushback  ─▶  capture  ─▶  load back  ─▶  distill  ─▶  prune  ─┐
-  │    (you)        corrections   SessionStart   repeats →    drop     │
-  │                 .md           hook           principles   stale    │
-  └──────────────────────────  the flywheel  ─────────────────────────┘
+  ┌─▶  you correct it  ─▶  it logs the lesson  ─▶  next session it recalls  ─▶  repeats distill into principles  ─┐
+  │                                                                                                              │
+  └──────────────────────────────────────────  the flywheel  ───────────────────────────────────────────────────┘
 ```
 
-## What it installs
+## Install
 
-Three hooks and two memory files under `~/.claude/`:
+### Option 1 — Claude Code plugin (recommended, ~10 seconds)
 
-| Piece | Type | Job |
-|---|---|---|
-| `hooks/session-start.py` | SessionStart | Injects your skill list + 3 latest corrections + learned principles, every session. |
-| `hooks/skill-router.py` | UserPromptSubmit | Fires `⚡ SKILL CHECK — Task type → Applying [skill]` before every reply, so Claude actually chooses. |
-| `hooks/skill-logger.py` | PostToolUse(Skill) | Records which skill ran (session continuity + a usage log). |
-| `.flywheel/corrections.md` | memory | Where your pushbacks are captured, newest on top. |
-| `.flywheel/principles.md` | memory | Where repeated corrections distill into durable principles. |
+In Claude Code, run these two lines:
 
-It also installs a one-page `CLAUDE.md` framework template, only if you don't already have one.
+```
+/plugin marketplace add WinterDDo/claude-skill-flywheel
+/plugin install flywheel@claude-skill-flywheel
+```
 
-## Quickstart
+Restart or run `/reload-plugins`, send any message, and you'll see the `⚡ SKILL CHECK` fire. Done.
+
+### Option 2 — install script
 
 ```bash
 git clone https://github.com/WinterDDo/claude-skill-flywheel.git
@@ -54,62 +59,60 @@ cd claude-skill-flywheel
 ./install.sh
 ```
 
-Restart Claude Code, send any message, and you will see the `⚡ SKILL CHECK` line. That is the flywheel turning.
+Backs up anything it touches, merges into your existing `settings.json` without clobbering it, and never overwrites memory you've accumulated. Remove any time with `./uninstall.sh`. Requires `python3`.
 
-The installer backs up anything it touches, merges into your existing `settings.json` without clobbering it, and never overwrites memory you have accumulated. Remove it any time with `./uninstall.sh`.
+### Option 3 — other tools (claude.ai, Cursor, Codex, Gemini CLI…)
 
-> Requires `python3` (the hooks are Python) and Claude Code with hooks enabled.
+Those surfaces don't run hooks, but the framework still travels: paste [`portable/PROMPT.md`](portable/PROMPT.md) at the start of a conversation or into the custom-instructions field. It carries the same loop by hand.
 
-## How it works
+## Privacy (read this, it's short)
 
-### 1. Invoke — the SKILL CHECK
+**100% local plaintext. Nothing ever leaves your machine.** No server, no telemetry, no account. Your corrections and principles are just Markdown files under `~/.claude/.flywheel/` that you can read, edit, or delete with any text editor. The installer backs up anything it touches, and `./uninstall.sh` removes it cleanly.
 
-On every message, `skill-router.py` injects a one-line forcing function:
+## How it works (the three gears)
+
+**1. Invoke — the SKILL CHECK.** On every message, a `UserPromptSubmit` hook injects a one-line forcing function:
 
 ```
 ⚡ SKILL CHECK — before responding:
 Task type: [identify] → Applying: [skill or Tier 1 only]
 ```
 
-Claude has to name the task type and pick a skill (or say "Tier 1 only"). This single nudge is what stops skills from being silently forgotten. When a skill session is already running, the hook nudges continuity instead, so it does not re-prompt mid-task.
+Claude has to name the task and pick a skill (or say "Tier 1 only"). This single nudge is what stops skills from being silently forgotten.
 
-### 2. Remember — corrections load back
+**2. Remember — corrections load back.** After a correction, say **"log this"** (or **"记下来"**). It's appended to `corrections.md`. At the start of every session, a `SessionStart` hook surfaces the newest three, so the mistake is in front of Claude before it can repeat it.
 
-Right after you correct Claude, say **"log this"** (or **"记下来"**). The correction is appended to the top of `corrections.md` in a fixed five-line format. At the start of every session, `session-start.py` surfaces the newest three, so the same mistake is in front of Claude before it can repeat it.
+**3. Learn — distillation.** Run **`/flywheel:distill`** when corrections pile up. A lesson graduates to `principles.md` only if it's been seen 3+ times, holds across 3 domains, and removing it would cause a real regression. Promoted principles load every session, forever. Check the current state any time with **`/flywheel:flywheel-status`**. Maturity looks like *fewer* principles, not more.
 
-### 3. Learn — distillation
+## The idea, for the technically curious
 
-When corrections on a theme pile up, run a distill pass. A lesson graduates to `principles.md` only if it passes three gates:
+This is, almost literally, **fine-tuning without fine-tuning**: your corrections are the loss signal, the distill pass is the optimizer step, the surviving principles are the learned weights — and two hooks make sure all of it loads back into context every session. No training run, no data leaving your machine, just plain text that compounds.
 
-1. **seen 3+ times** in genuinely different situations,
-2. **holds across 3 domains** (for example coding, writing, decisions),
-3. **deletion test:** removing it would cause an observable regression.
+## Works with
 
-Promoted principles load back every session, forever. Maturity looks like **fewer** lines, not more. If your principles list grows every cycle, you are collecting scenarios instead of finding root causes, and the distillation rules say so out loud.
-
-## Works beyond Claude Code
-
-Hooks only run in Claude Code. For claude.ai, Projects, Cursor, Codex, or Cowork, paste [`portable/PROMPT.md`](portable/PROMPT.md). It carries the same framework by hand and gives you a capture line to bring corrections back to where the flywheel actually lives.
-
-## Customize
-
-- Edit `~/.claude/CLAUDE.md` and replace the `{{placeholders}}` with your role and context.
-- Add skills as folders under `~/.claude/skills/`, each with a `SKILL.md`; the session hook lists them automatically.
-- Optional: drop a `~/.claude/.flywheel/profile.md` so Claude calibrates to you each session.
+Built for **Claude Code** (the hooks and slash commands). The framework is portable to **claude.ai, Cursor, Codex, Gemini CLI**, and anything else via the paste-in prompt.
 
 ## FAQ
 
 **Does it send my data anywhere?** No. Everything is local plaintext under `~/.claude/`. There is no server and no telemetry.
 
-**Do I need the hooks?** For the automatic loop, yes (Claude Code only). Without them, use `portable/PROMPT.md`.
+**Do I need the plugin?** For the automatic loop, you need either the plugin or the install script (both Claude Code). On other tools, use `portable/PROMPT.md`.
 
-**Will it overwrite my `CLAUDE.md` or settings?** No. It backs up first, merges `settings.json` additively, and skips files you already have.
+**Will it overwrite my `CLAUDE.md` or settings?** No. The script backs up first, merges `settings.json` additively, and skips files you already have. The plugin manages its own hooks and never touches your files except to seed `~/.claude/.flywheel/` once.
 
-**Does it work with my existing skills?** Yes. It does not ship skills; it makes the ones you already have under `~/.claude/skills/` fire reliably and improve over time.
+**Does it work with my existing skills?** Yes. It doesn't ship skills — it makes the ones you already have under `~/.claude/skills/` fire reliably and improve over time.
+
+## Star history
+
+<a href="https://star-history.com/#WinterDDo/claude-skill-flywheel&Date">
+  <img src="https://api.star-history.com/svg?repos=WinterDDo/claude-skill-flywheel&type=Date" alt="Star history chart" width="600">
+</a>
+
+If the flywheel saves you from repeating a mistake, a ⭐ helps others find it.
 
 ## Credits
 
-The collaboration principles in the `CLAUDE.md` template build in part on Andrej Karpathy's widely shared notes on LLM coding pitfalls. Everything else is the loop described above.
+The collaboration principles in the `CLAUDE.md` template build in part on Andrej Karpathy's widely shared notes on LLM coding pitfalls. Everything else is the loop described above. Contributions — especially [distilled principles](CONTRIBUTING.md) — are welcome.
 
 ## License
 

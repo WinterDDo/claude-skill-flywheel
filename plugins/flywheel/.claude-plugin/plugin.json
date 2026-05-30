@@ -1,0 +1,11 @@
+{
+  "name": "flywheel",
+  "description": "Self-improving skill system: makes Claude reliably invoke the right skill every turn and learn from your corrections over time. 100% local plaintext.",
+  "version": "0.1.0",
+  "author": {
+    "name": "WinterDDo"
+  },
+  "homepage": "https://github.com/WinterDDo/claude-skill-flywheel",
+  "repository": "https://github.com/WinterDDo/claude-skill-flywheel",
+  "license": "MIT"
+}
