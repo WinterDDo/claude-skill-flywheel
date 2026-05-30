@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>claude-skill-flywheel — Claude that keeps what it learns from you</title>
+<meta name="description" content="A Claude Code plugin that gives Claude a memory: it remembers your corrections, turns the repeated ones into principles, and invokes the right skill each turn.">
+<meta property="og:title" content="claude-skill-flywheel">
+<meta property="og:description" content="Claude that keeps what it learns from you. A Claude Code plugin that remembers your corrections and turns the repeated ones into lasting principles.">
+<meta property="og:image" content="https://raw.githubusercontent.com/WinterDDo/claude-skill-flywheel/main/assets/social-preview.png">
+<meta property="og:url" content="https://winterddo.github.io/claude-skill-flywheel/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/WinterDDo/claude-skill-flywheel/main/assets/social-preview.png">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #0d1117; color: #c9d1d9;
+    font: 17px/1.65 ui-sans-serif, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .bar { height: 4px; background: #8957e5; }
+  main { max-width: 720px; margin: 0 auto; padding: 72px 24px 96px; }
+  h1 { color: #f0f6fc; font-size: 40px; margin: 0 0 6px; letter-spacing: -0.5px; }
+  .tag { color: #58a6ff; font-size: 20px; font-weight: 600; margin: 0 0 36px; }
+  p { margin: 0 0 20px; }
+  .lead { color: #c9d1d9; font-size: 18px; }
+  pre {
+    background: #161b22; border: 1px solid #30363d; border-radius: 10px;
+    padding: 16px 18px; overflow-x: auto; color: #e6edf3;
+    font: 14px/1.7 ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  img.demo { width: 100%; border-radius: 12px; border: 1px solid #30363d; margin: 28px 0; }
+  .cta {
+    display: inline-block; margin-top: 8px; padding: 11px 20px; border-radius: 8px;
+    background: #238636; color: #fff; text-decoration: none; font-weight: 600;
+  }
+  .cta:hover { background: #2ea043; }
+  a { color: #58a6ff; }
+  footer { color: #6e7681; font-size: 14px; margin-top: 56px; border-top: 1px solid #21262d; padding-top: 20px; }
+</style>
+</head>
+<body>
+<div class="bar"></div>
+<main>
+  <h1>claude-skill-flywheel</h1>
+  <p class="tag">Claude that keeps what it learns from you.</p>
+
+  <p class="lead">Every session with an AI starts from zero. You correct it, the session ends, and the correction dies with it. Next time, the same mistake.</p>
+  <p>This lets Claude keep what it learns from you. Correct it once, and the lesson is saved. The next session opens by reading it back, so the mistake does not return. When the same correction keeps recurring, it hardens into a principle Claude carries into every task. Your feedback stops being disposable and starts to compound.</p>
+  <p>Everything lives in a few plain text files on your own computer. Nothing is sent anywhere.</p>
+
+  <img class="demo" src="https://raw.githubusercontent.com/WinterDDo/claude-skill-flywheel/main/assets/demo.svg" alt="A session logging a correction, and the next session recalling it">
+
+  <p>Install is two lines inside Claude Code:</p>
+  <pre>/plugin marketplace add WinterDDo/claude-skill-flywheel
+/plugin install flywheel@claude-skill-flywheel</pre>
+
+  <p><a class="cta" href="https://github.com/WinterDDo/claude-skill-flywheel">View on GitHub</a></p>
+
+  <footer>MIT licensed. 100% local. Built on the work of Andrej Karpathy, Paul Graham, and others.</footer>
+</main>
+</body>
+</html>

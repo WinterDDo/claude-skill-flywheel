@@ -66,6 +66,8 @@ Claude has to name the task and choose. That one step is what stops it from forg
 
 If you know the machine learning version of this, it is, in effect, fine tuning without the fine tuning. Corrections are the training signal, distillation is the update step, the principles are the weights. The difference is that it runs in plain text, on your own machine, with no training run.
 
+For the longer version of why Claude forgets skills in the first place, see [this note](docs/why-claude-code-forgets-skills.md).
+
 ## Privacy
 
 The memory is two Markdown files under `~/.claude/.flywheel/`: your corrections, and the principles distilled from them. You can read, edit, or delete them in any text editor. There is no server, no account, and no telemetry. Uninstalling removes the machinery and leaves your files.
