@@ -48,6 +48,16 @@ cd claude-skill-flywheel
 
 **其他地方（claude.ai、Cursor、Codex）。** 那些地方没有 hook，闭环无法自动运行。把 [`portable/PROMPT.md`](portable/PROMPT.md) 粘贴进对话或自定义指令，它会用手动的方式承载同样的习惯。
 
+## 新手？从这些 skills 开始
+
+flywheel 让你的 skills 可靠地触发。如果你还没装几个，可以从这里开始，然后运行 `/flywheel:doctor` 看它们冒出来。
+
+- **[Anthropic 官方 skills](https://github.com/anthropics/skills)：** 文档、设计、MCP 构建等等，最适合起步的地方。
+- **[gstack](https://github.com/garrytan/gstack)：** Garry Tan 的配置，一组有主见的 skills，扮演 CEO、设计师、工程经理、发布经理。
+- **[andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills)：** 从 Andrej Karpathy 关于 LLM 常见问题的笔记中提炼出的编码原则，本项目的原则也建立在它之上。
+
+更多可浏览 [awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills)。
+
 ## 工作原理
 
 它做两件事：让 Claude 用上你已经配置好的 skills，以及记住你教它的东西。三个小 hook，两个文件。

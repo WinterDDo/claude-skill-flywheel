@@ -48,6 +48,16 @@ It backs up whatever it changes, adds to your `settings.json` without overwritin
 
 **Anywhere else (claude.ai, Cursor, Codex).** Those have no hooks, so the loop cannot run on its own. Paste [`portable/PROMPT.md`](portable/PROMPT.md) into the conversation or the custom instructions, and it carries the same habits by hand.
 
+## New to skills? Start here
+
+The flywheel makes your skills fire reliably. If you do not have many yet, start here, then run `/flywheel:doctor` to watch them show up.
+
+- **[Anthropic's official skills](https://github.com/anthropics/skills):** documents, design, MCP building, and more. The place to begin.
+- **[gstack](https://github.com/garrytan/gstack):** Garry Tan's setup, opinionated skills that act as a CEO, designer, eng manager, and release manager.
+- **[andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills):** coding principles drawn from Andrej Karpathy's notes on where LLMs go wrong. This project's own principles build on it.
+
+For the full landscape, browse [awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills).
+
 ## How it works
 
 It does two things: it makes Claude use the skills you already set up, and it remembers what you teach it. Three small hooks and two files.
