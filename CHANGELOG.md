@@ -4,6 +4,11 @@ All notable changes to this project are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project aims to follow
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- `/flywheel:doctor` — a read-only diagnostic that shows which of your installed skills have actually fired and which sit dormant. Reads your own `~/.claude/skills/` and usage log; nothing is hardcoded or sent anywhere.
+
 ## [0.1.0] — 2026-05-30
 
 First public release.

@@ -37,6 +37,11 @@ for src in "$SCRIPT_DIR"/plugins/flywheel/hooks/*.py; do
   ok "hooks/$name"
 done
 
+# 1b. Skill doctor — a read-only diagnostic you can run any time
+cp "$SCRIPT_DIR/plugins/flywheel/scripts/flywheel-doctor.py" "$CLAUDE_HOME/flywheel-doctor.py"
+chmod +x "$CLAUDE_HOME/flywheel-doctor.py"
+ok "flywheel-doctor.py (run: python3 ~/.claude/flywheel-doctor.py)"
+
 # 2. settings.json — deep-merge our hooks block, preserving everything else
 python3 - "$CLAUDE_HOME/settings.json" "$SCRIPT_DIR/templates/settings.json" "$STAMP" <<'PY'
 import json, sys, os, shutil

@@ -58,7 +58,7 @@ cd claude-skill-flywheel
 Task type: [identify] → Applying: [a skill, or none needed]
 ```
 
-Claude 必须说出任务类型并做出选择。就是这一步，挡住了它忘掉你配置好的 skills。
+Claude 必须说出任务类型并做出选择。就是这一步，挡住了它忘掉你配置好的 skills。想看看哪些 skill 从没被触发过，运行 `/flywheel:doctor`。
 
 **读回。** 当你在一次纠正之后说“记下来”，它会被写进 `corrections.md`。每次对话开始时，一个 `SessionStart` hook 把你最近的纠正读回上下文，于是它们在 Claude 可能重犯之前，就已经摆在它面前。
 

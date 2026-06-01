@@ -58,7 +58,7 @@ It does two things: it makes Claude use the skills you already set up, and it re
 Task type: [identify] → Applying: [a skill, or none needed]
 ```
 
-Claude has to name the task and choose. That one step is what stops it from forgetting the skills you installed.
+Claude has to name the task and choose. That one step is what stops it from forgetting the skills you installed. To see which of your skills have never fired, run `/flywheel:doctor`.
 
 **The load back.** When you say "log this" after a correction, it is written to `corrections.md`. At the start of each session, a `SessionStart` hook reads your most recent corrections back into context, so they are in front of Claude before it can repeat them.
 
