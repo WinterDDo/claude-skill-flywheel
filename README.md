@@ -9,7 +9,7 @@
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-8957e5.svg)](https://code.claude.com/docs/en/plugins)
 [![Local](https://img.shields.io/badge/data-100%25%20local-3fb950.svg)](#privacy)
 
-[English](README.md) · [简体中文](README.zh.md)
+[English](README.md) · [简体中文](README.zh.md) · [Português](README.pt.md) · [Español](README.es.md) · [日本語](README.ja.md)
 
 </div>
 
