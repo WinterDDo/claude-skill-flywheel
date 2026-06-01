@@ -5,7 +5,7 @@
 **会记住它从你这里学到的东西的 Claude。**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-3fb950.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-0.1.0-58a6ff.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/github/v/release/WinterDDo/claude-skill-flywheel?label=version&color=58a6ff)](https://github.com/WinterDDo/claude-skill-flywheel/releases)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-plugin-8957e5.svg)](https://code.claude.com/docs/en/plugins)
 [![Local](https://img.shields.io/badge/data-100%25%20本地-3fb950.svg)](#隐私)
 
