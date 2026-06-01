@@ -11,7 +11,7 @@
       "name": "flywheel",
       "source": "./plugins/flywheel",
       "description": "Self-improving skill system for Claude Code: a SKILL CHECK hook makes Claude reliably invoke the right skill every turn, and a distillation flywheel learns from your corrections. 100% local.",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }
